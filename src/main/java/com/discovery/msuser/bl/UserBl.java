@@ -1,6 +1,7 @@
 package com.discovery.msuser.bl;
 
 import com.discovery.msuser.dao.UserRepository;
+import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.UserDto;
 import com.discovery.msuser.entitiy.Student;
 import com.discovery.msuser.exception.UserException;
@@ -74,6 +75,16 @@ public class UserBl {
 
     }
 
+    public KeycloakUserDto getUserByKeycloakId(String keycloakId) throws UserException {
+        KeycloakUserDto keycloakUserDto = new KeycloakUserDto();
+        UserRepresentation userRepresentation = keycloak.realm(realm).users().get(keycloakId).toRepresentation();
+        if(userRepresentation == null) {
+            throw new UserException(HttpStatus.BAD_REQUEST.value(),"User not found");
+        }
+
+        return  keycloakUserDto = convertToKeycloakUserDto(userRepresentation);
+    }
+
 
 
 
@@ -97,8 +108,21 @@ public class UserBl {
         userRepresentation.setEmail(userDto.getEmail());
         userRepresentation.setFirstName(userDto.getFirstName());
         userRepresentation.setLastName(userDto.getLastName());
+        userRepresentation.setEnabled(true);
         return userRepresentation;
     }
 
+
+    private KeycloakUserDto convertToKeycloakUserDto(UserRepresentation userRepresentation) {
+        KeycloakUserDto keycloakUserDto = new KeycloakUserDto();
+        keycloakUserDto.setId(userRepresentation.getId());
+        keycloakUserDto.setUsername(userRepresentation.getUsername());
+        keycloakUserDto.setEnabled(userRepresentation.isEnabled());
+        keycloakUserDto.setEmailVerified(userRepresentation.isEmailVerified());
+        keycloakUserDto.setFirstName(userRepresentation.getFirstName());
+        keycloakUserDto.setLastName(userRepresentation.getLastName());
+        keycloakUserDto.setEmail(userRepresentation.getEmail());
+        return keycloakUserDto;
+    }
 
 }

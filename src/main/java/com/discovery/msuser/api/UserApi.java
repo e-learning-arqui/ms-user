@@ -1,6 +1,7 @@
 package com.discovery.msuser.api;
 
 import com.discovery.msuser.bl.UserBl;
+import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.ResponseDto;
 import com.discovery.msuser.dto.UserDto;
 import com.discovery.msuser.exception.UserException;
@@ -8,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,6 +19,7 @@ public class UserApi {
     private UserBl userBl;
 
     Logger logger = LoggerFactory.getLogger(UserApi.class);
+
     public UserApi(UserBl userBl) {
         this.userBl = userBl;
     }
@@ -30,8 +29,15 @@ public class UserApi {
 
         logger.info("Starting to create user with username: {}", userDto.getUsername(), " and email: {}", userDto.getEmail());
         userBl.createUser(userDto, "student");
-        return ResponseEntity.ok(new ResponseDto<>(null , "0000","User created successfully"));
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", "User created successfully"));
     }
 
+    @GetMapping("/users/{uuid}")
+    public ResponseEntity<ResponseDto<KeycloakUserDto>> getUser(@PathVariable("uuid") String uuid) throws UserException {
+        logger.info("Starting to get user with uuid: {}", uuid);
+        KeycloakUserDto userDto = userBl.getUserByKeycloakId(uuid);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", userDto));
 
+    }
 }
+

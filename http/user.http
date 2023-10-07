@@ -9,3 +9,6 @@ Authorization: Bearer {{access_token}}
   "lastName": "Prince",
   "password": "12344"
 }
+
+###
+GET http://localhost:8000/api/v1/users/ffa27ed2-5096-4876-b299-b5a2e69c87a1
