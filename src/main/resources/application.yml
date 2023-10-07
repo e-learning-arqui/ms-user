@@ -1,0 +1,23 @@
+server:
+  port: 8000
+
+spring:
+    application:
+        name: ms-users
+    datasource:
+      url: jdbc:postgresql://localhost:5432/cognito-hub
+      username: postgres
+      password: admin
+      jpa:
+        hibernate:
+          ddl-auto: none
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+
+        
