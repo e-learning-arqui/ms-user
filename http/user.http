@@ -3,9 +3,9 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "username": "john.doe",
-  "email": "johndoe@gmail.com",
-  "firstName": "John",
-  "lastName": "Doe",
-  "password": "1234"
+  "username": "diana.prince.2",
+  "email": "dianaprince@gmail.com",
+  "firstName": "Diana",
+  "lastName": "Prince",
+  "password": "12344"
 }

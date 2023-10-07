@@ -3,6 +3,7 @@ package com.discovery.msuser.api;
 import com.discovery.msuser.bl.UserBl;
 import com.discovery.msuser.dto.ResponseDto;
 import com.discovery.msuser.dto.UserDto;
+import com.discovery.msuser.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ public class UserApi {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<ResponseDto<String>> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<ResponseDto<String>> createUser(@RequestBody UserDto userDto) throws UserException {
 
         logger.info("Starting to create user with username: {}", userDto.getUsername(), " and email: {}", userDto.getEmail());
-        userBl.createUser(userDto);
+        userBl.createUser(userDto, "student");
         return ResponseEntity.ok(new ResponseDto<>(null , "0000","User created successfully"));
     }
 
