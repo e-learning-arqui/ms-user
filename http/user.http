@@ -1,0 +1,11 @@
+POST http://localhost:8000/api/v1/users
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "username": "john.doe",
+  "email": "johndoe@gmail.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "1234"
+}
