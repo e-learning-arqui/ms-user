@@ -1,8 +1,10 @@
 package com.discovery.msuser.bl;
 
+import com.discovery.msuser.dao.ProfessorRepository;
 import com.discovery.msuser.dao.UserRepository;
 import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.UserDto;
+import com.discovery.msuser.entitiy.Professor;
 import com.discovery.msuser.entitiy.Student;
 import com.discovery.msuser.exception.UserException;
 import org.keycloak.admin.client.Keycloak;
@@ -19,6 +21,8 @@ import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
+
 @Service
 public class UserBl {
 
@@ -26,6 +30,8 @@ public class UserBl {
     private final Keycloak keycloak;
     @Autowired
     private final UserRepository userRepository;
+    @Autowired
+    private final ProfessorRepository professorRepository;
 
     @Value("${keycloak.credentials.realm}")
     private String realm;
@@ -35,19 +41,22 @@ public class UserBl {
     private String authServerUrl;
 
 
-    public UserBl(Keycloak keycloak, UserRepository userRepository) {
+    public UserBl(Keycloak keycloak,
+                  UserRepository userRepository,
+                  ProfessorRepository professorRepository) {
         this.keycloak = keycloak;
         this.userRepository = userRepository;
+        this.professorRepository = professorRepository;
     }
 
     Logger logger = LoggerFactory.getLogger(UserBl.class);
-    public void createUser(UserDto userDto, String groupName) throws UserException {
+    public void createUser(UserDto userDto) throws UserException {
         if(userDto.getUsername() == null || userDto.getUsername().isEmpty()) {
             throw new UserException(HttpStatus.BAD_REQUEST.value(),"Username is required");
         }
 
         CredentialRepresentation passwordRepresentation = preparePasswordRepresentation(userDto.getPassword());
-        UserRepresentation userRepresentation = prepareUserRepresentation(userDto);
+        UserRepresentation userRepresentation = prepareUserRepresentation(userDto, passwordRepresentation);
         Response response = keycloak.
                 realm(realm)
                 .users()
@@ -58,20 +67,50 @@ public class UserBl {
             throw new UserException(HttpStatus.BAD_REQUEST.value(),"User already exists");
         }
         String keycloakUserId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
-        if(groupName.equals("student")) {
-            logger.info("Starting to add user to database");
-            Student student = new Student();
-            student.setUsername(userDto.getUsername());
-            student.setEmail(userDto.getEmail());
-            student.setStatus(true);
-            student.setKeycloakId(keycloakUserId);
-            student.setTxUser("admin");
-            student.setTxHost("localhost");
-            Date date = new Date();
-            student.setTxDate(date);
-            userRepository.save(student);
-            logger.info("User added to database with keycloak id {}", keycloakUserId);
+        logger.info("Starting to add user to database");
+        Student student = new Student();
+        student.setUsername(userDto.getUsername());
+        student.setEmail(userDto.getEmail());
+        student.setStatus(true);
+        student.setKeycloakId(keycloakUserId);
+        student.setTxUser("admin");
+        student.setTxHost("localhost");
+        Date date = new Date();
+        student.setTxDate(date);
+        userRepository.save(student);
+        logger.info("User added to database with keycloak id {}", keycloakUserId);
+
+    }
+
+    public void createProfessor(UserDto userDto) throws UserException {
+        if(userDto.getUsername() == null || userDto.getUsername().isEmpty()) {
+            throw new UserException(HttpStatus.BAD_REQUEST.value(),"Username is required");
         }
+
+        CredentialRepresentation passwordRepresentation = preparePasswordRepresentation(userDto.getPassword());
+        UserRepresentation userRepresentation = prepareUserRepresentation(userDto, passwordRepresentation);
+        Response response = keycloak.
+                realm(realm)
+                .users()
+                .create(userRepresentation);
+        logger.info("Response {}", response.getStatus());
+
+        if(response.getStatus() != 201) {
+            throw new UserException(HttpStatus.BAD_REQUEST.value(),"User already exists");
+        }
+        String keycloakUserId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
+        logger.info("Starting to add professor to database");
+        Professor professor = new Professor();
+        professor.setUsername(userDto.getUsername());
+        professor.setEmail(userDto.getEmail());
+        professor.setStatus(true);
+        professor.setKeycloakId(keycloakUserId);
+        professor.setTxUser("admin");
+        professor.setTxHost("localhost");
+        Date date = new Date();
+        professor.setTxDate(date);
+        professorRepository.save(professor);
+        logger.info("Professor added to database with keycloak id {}", keycloakUserId);
 
     }
 
@@ -81,8 +120,7 @@ public class UserBl {
         if(userRepresentation == null) {
             throw new UserException(HttpStatus.BAD_REQUEST.value(),"User not found");
         }
-
-        return  keycloakUserDto = convertToKeycloakUserDto(userRepresentation);
+        return convertToKeycloakUserDto(userRepresentation);
     }
 
 
@@ -101,7 +139,8 @@ public class UserBl {
     }
 
     private UserRepresentation prepareUserRepresentation(
-            UserDto userDto
+            UserDto userDto,
+            CredentialRepresentation credentialsRepresentation
     ) {
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setUsername(userDto.getUsername());
@@ -109,6 +148,7 @@ public class UserBl {
         userRepresentation.setFirstName(userDto.getFirstName());
         userRepresentation.setLastName(userDto.getLastName());
         userRepresentation.setEnabled(true);
+        userRepresentation.setCredentials(listOf(credentialsRepresentation));
         return userRepresentation;
     }
 

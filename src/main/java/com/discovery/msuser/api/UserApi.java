@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 public class UserApi {
 
     @Autowired
@@ -24,13 +24,22 @@ public class UserApi {
         this.userBl = userBl;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/students")
     public ResponseEntity<ResponseDto<String>> createUser(@RequestBody UserDto userDto) throws UserException {
 
         logger.info("Starting to create user with username: {}", userDto.getUsername(), " and email: {}", userDto.getEmail());
-        userBl.createUser(userDto, "student");
+        userBl.createUser(userDto);
         return ResponseEntity.ok(new ResponseDto<>(null, "0000", "User created successfully"));
     }
+
+    @PostMapping("/professors")
+    public ResponseEntity<ResponseDto<String>> createProfessor(@RequestBody UserDto userDto) throws UserException {
+
+        logger.info("Starting to create professor with username: {}", userDto.getUsername());
+        userBl.createProfessor(userDto);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Professor created successfully"));
+    }
+
 
     @GetMapping("/users/{uuid}")
     public ResponseEntity<ResponseDto<KeycloakUserDto>> getUser(@PathVariable("uuid") String uuid) throws UserException {

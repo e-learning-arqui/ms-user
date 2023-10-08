@@ -1,14 +1,26 @@
-POST http://localhost:8000/api/v1/users
+POST http://localhost:8000/api/v1/users/students
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "username": "diana.prince.2",
-  "email": "dianaprince@gmail.com",
-  "firstName": "Diana",
-  "lastName": "Prince",
-  "password": "12344"
+  "username": "batman",
+  "email": "batman@wayneenterprises.com",
+  "firstName": "Bruce",
+  "lastName": "Wayne",
+  "password": "qwerty"
 }
-
 ###
 GET http://localhost:8000/api/v1/users/ffa27ed2-5096-4876-b299-b5a2e69c87a1
+
+###
+POST http://localhost:8000/api/v1/users/professors
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "username": "greenarrow",
+  "email": "greenarrow@starlingcity.com",
+  "firstName": "Oliver",
+  "lastName": "Queen",
+  "password": "qwertyuiop"
+}
