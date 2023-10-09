@@ -1,0 +1,17 @@
+POST http://localhost:8000/api/v1/users/professors/course
+Content-Type: application/json
+
+{
+  "title": "Curso de Ejemplo",
+  "description": "Descripción del curso",
+  "amount": 99.99,
+  "version": 1,
+  "duration": 30,
+  "languageId": 1,
+  "levelId": 2,
+  "subCategoryId": 3,
+  "professorId": 1
+}
+
+
+###

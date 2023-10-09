@@ -15,12 +15,12 @@ GET http://localhost:8000/api/v1/users/ffa27ed2-5096-4876-b299-b5a2e69c87a1
 ###
 POST http://localhost:8000/api/v1/users/professors
 Content-Type: application/json
-Authorization: Bearer {{access_token}}
+//Authorization: Bearer {{access_token}}
 
 {
-  "username": "greenarrow",
-  "email": "greenarrow@starlingcity.com",
-  "firstName": "Oliver",
-  "lastName": "Queen",
-  "password": "qwertyuiop"
+  "username": "greenedfdf2",
+  "email": "greenarro2w@star.com",
+  "firstName": "Oliver1",
+  "lastName": "Qu4343n1",
+  "password": "1234"
 }

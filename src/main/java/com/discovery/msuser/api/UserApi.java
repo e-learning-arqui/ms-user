@@ -1,10 +1,12 @@
 package com.discovery.msuser.api;
 
 import com.discovery.msuser.bl.UserBl;
+import com.discovery.msuser.dto.CourseDto;
 import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.ResponseDto;
 import com.discovery.msuser.dto.UserDto;
 import com.discovery.msuser.exception.UserException;
+import com.discovery.msuser.service.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,14 @@ public class UserApi {
     @Autowired
     private UserBl userBl;
 
+    @Autowired
+    private final CourseService courseService;
+
     Logger logger = LoggerFactory.getLogger(UserApi.class);
 
-    public UserApi(UserBl userBl) {
+    public UserApi(UserBl userBl, CourseService courseService) {
         this.userBl = userBl;
+        this.courseService = courseService;
     }
 
     @PostMapping("/students")
@@ -48,5 +54,14 @@ public class UserApi {
         return ResponseEntity.ok(new ResponseDto<>(null, "0000", userDto));
 
     }
+
+    //Register course for professor
+    @PostMapping("/professors/course")
+    public ResponseEntity<ResponseDto<String>> registerCourse(@RequestBody CourseDto courseDto) throws UserException {
+        logger.info("Starting to register course for professor from ms-user");
+        courseService.createCourse(courseDto);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Course registered successfully"));
+    }
+
 }
 
