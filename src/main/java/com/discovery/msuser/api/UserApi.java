@@ -11,8 +11,12 @@ import com.discovery.msuser.service.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.ws.rs.core.Response;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,6 +28,9 @@ public class UserApi {
     @Autowired
     private final CourseService courseService;
 
+
+    @Value("${server.port}")
+    private String port;
     Logger logger = LoggerFactory.getLogger(UserApi.class);
 
     public UserApi(UserBl userBl, CourseService courseService) {
@@ -70,6 +77,19 @@ public class UserApi {
         logger.info("Starting to register course for professor from ms-user");
         courseService.createCourse(courseDto);
         return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Course registered successfully"));
+    }
+
+    //Get courses by professor id
+    @GetMapping("/professors/{professorId}/courses")
+    public ResponseEntity<Page<CourseDto>> getCoursesByProfessorId(
+            @PathVariable String professorId,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
+    ) {
+
+        logger.info("Starting to get courses from {}", port);
+        Page<CourseDto> courseDtoPage = courseService.getCoursesByProfessorId(professorId, page, size);
+        return ResponseEntity.ok(courseDtoPage);
     }
 
 

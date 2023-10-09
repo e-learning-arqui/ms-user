@@ -2,7 +2,7 @@ POST http://localhost:8000/api/v1/users/professors/course
 Content-Type: application/json
 
 {
-  "title": "Curso de Ejemplo",
+  "title": "Curso de Ejemplo 2",
   "description": "Descripción del curso",
   "amount": 99.99,
   "version": 1,
@@ -15,3 +15,4 @@ Content-Type: application/json
 
 
 ###
+GET http://localhost:8000/api/v1/users/professors/d4ab900f-3fe0-44ba-aacd-4ad74a7738ce/courses
