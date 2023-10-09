@@ -4,8 +4,8 @@ import com.discovery.msuser.dao.ProfessorRepository;
 import com.discovery.msuser.dao.UserRepository;
 import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.UserDto;
-import com.discovery.msuser.entitiy.Professor;
-import com.discovery.msuser.entitiy.Student;
+import com.discovery.msuser.entity.Professor;
+import com.discovery.msuser.entity.Student;
 import com.discovery.msuser.exception.UserException;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -18,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
@@ -112,6 +111,11 @@ public class UserBl {
         professorRepository.save(professor);
         logger.info("Professor added to database with keycloak id {}", keycloakUserId);
 
+    }
+
+    public Professor getProfessorById(Long id) throws UserException {
+        Professor professor = professorRepository.findById(id).orElseThrow(() -> new UserException(HttpStatus.BAD_REQUEST.value(),"Professor not found"));
+        return professor;
     }
 
     public KeycloakUserDto getUserByKeycloakId(String keycloakId) throws UserException {

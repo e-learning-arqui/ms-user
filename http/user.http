@@ -18,9 +18,13 @@ Content-Type: application/json
 //Authorization: Bearer {{access_token}}
 
 {
-  "username": "greenedfdf2",
-  "email": "greenarro2w@star.com",
-  "firstName": "Oliver1",
-  "lastName": "Qu4343n1",
+  "username": "profesir2",
+  "email": "gsd12r@asd.com",
+  "firstName": "juan2",
+  "lastName": "juan22",
   "password": "1234"
 }
+
+###
+
+GET http://localhost:8000/api/v1/users/professors/1

@@ -1,15 +1,15 @@
-package com.discovery.msuser.entitiy;
+package com.discovery.msuser.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "STUDENT")
-public class Student {
+@Table(name = "PROFESSOR")
+public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private long professorId;
 
     @Column(name = "USERNAME", nullable = false)
     private String username;
@@ -32,8 +32,11 @@ public class Student {
     @Column(name = "TX_DATE", nullable = false)
     private Date txDate;
 
-    public Student(Long userId, String username, String email, Boolean status, String keycloakId, String txUser, String txHost, Date txDate) {
-        this.userId = userId;
+    public Professor() {
+    }
+
+    public Professor(long professorId, String username, String email, Boolean status, String keycloakId, String txUser, String txHost, Date txDate) {
+        this.professorId = professorId;
         this.username = username;
         this.email = email;
         this.status = status;
@@ -43,15 +46,12 @@ public class Student {
         this.txDate = txDate;
     }
 
-    public Student() {
+    public long getProfessorId() {
+        return professorId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setProfessorId(long professorId) {
+        this.professorId = professorId;
     }
 
     public String getUsername() {

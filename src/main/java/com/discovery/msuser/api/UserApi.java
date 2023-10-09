@@ -5,6 +5,7 @@ import com.discovery.msuser.dto.CourseDto;
 import com.discovery.msuser.dto.KeycloakUserDto;
 import com.discovery.msuser.dto.ResponseDto;
 import com.discovery.msuser.dto.UserDto;
+import com.discovery.msuser.entity.Professor;
 import com.discovery.msuser.exception.UserException;
 import com.discovery.msuser.service.CourseService;
 import org.slf4j.Logger;
@@ -55,6 +56,14 @@ public class UserApi {
 
     }
 
+    @GetMapping("/professors/{id}")
+    public ResponseEntity<ResponseDto<Professor>> getProfessorById(@PathVariable Long id) throws UserException {
+        logger.info("Starting to get professor with id: {}", id);
+        Professor professor = userBl.getProfessorById(id);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", professor));
+    }
+
+
     //Register course for professor
     @PostMapping("/professors/course")
     public ResponseEntity<ResponseDto<String>> registerCourse(@RequestBody CourseDto courseDto) throws UserException {
@@ -62,6 +71,8 @@ public class UserApi {
         courseService.createCourse(courseDto);
         return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Course registered successfully"));
     }
+
+
 
 }
 

@@ -10,7 +10,7 @@ Content-Type: application/json
   "languageId": 1,
   "levelId": 2,
   "subCategoryId": 3,
-  "professorId": 1
+  "professorKeycloakId": "d4ab900f-3fe0-44ba-aacd-4ad74a7738ce"
 }
 
 
