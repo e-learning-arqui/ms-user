@@ -18,7 +18,8 @@ public interface CourseService {
     public ResponseDto<String> createCourse(@RequestBody CourseDto courseDto);
 
     @GetMapping("api/v1/courses/professor/{professorId}")
-    Page<CourseDto> getCoursesByProfessorId(@PathVariable String professorId,
-                                                                         @RequestParam(defaultValue = "0") Integer page,
-                                                                         @RequestParam(defaultValue = "10") Integer size);
+    Page<CourseDto> getCoursesByProfessorId
+            (@PathVariable String professorId,
+             @RequestParam(defaultValue = "0") Integer page,
+             @RequestParam(defaultValue = "10") Integer size);
 }
