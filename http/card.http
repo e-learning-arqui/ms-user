@@ -1,10 +1,13 @@
-POST http://localhost:8000/api/v1/users/1/card
+POST http://localhost:8000/api/v1/users/card
 Content-Type: application/json
 
 {
-    "bankName": "BNB",
+    "bankName": "Bisa",
     "number": "1234567890",
-    "expiration": "2020-12-31",
-    "titular": "John Doe",
-    "cvv": "123"
+    "expiration": "2026-12-31",
+    "titular": "Pedro Perez",
+    "cvv": "123",
+    "userKeycloakId": "23772082-fe41-4dcc-9d10-e4a127447c9e"
 }
+###
+GET http://localhost:8000/api/v1/users/23772082-fe41-4dcc-9d10-e4a127447c9e/card

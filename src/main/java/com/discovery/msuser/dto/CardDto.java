@@ -8,15 +8,18 @@ public class CardDto {
     private Date expiration;
     private String titular;
     private String cvv;
+
+    private String userKeycloakId;
     public CardDto() {
     }
 
-    public CardDto( String bankName, String number, Date expiration, String titular, String cvv) {
+    public CardDto( String bankName, String number, Date expiration, String titular, String cvv, String userKeycloakId) {
         this.bankName = bankName;
         this.number = number;
         this.expiration = expiration;
         this.titular = titular;
         this.cvv = cvv;
+        this.userKeycloakId = userKeycloakId;
     }
 
     // Getters and setters
@@ -62,6 +65,14 @@ public class CardDto {
         this.cvv = cvv;
     }
 
+    public String getUserKeycloakId() {
+        return userKeycloakId;
+    }
+
+    public void setUserKeycloakId(String userKeycloakId) {
+        this.userKeycloakId = userKeycloakId;
+    }
+
 
 
     @Override
@@ -72,6 +83,7 @@ public class CardDto {
                 ", expiration=" + expiration +
                 ", titular='" + titular + '\'' +
                 ", cvv='" + cvv + '\'' +
+                ", userKeycloakId='" + userKeycloakId + '\'' +
                 '}';
     }
 }

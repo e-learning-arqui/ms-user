@@ -10,11 +10,7 @@ Content-Type: application/json
   "languageId": 1,
   "levelId": 2,
   "subCategoryId": 3,
-<<<<<<< HEAD
   "professorKeycloakId": "b1b22ac1-f533-4050-8f75-9c28f07843f3"
-=======
-  "professorKeycloakId": "56b79765-583b-4a42-8b05-c2d67fb11869"
->>>>>>> e5ed053b080e12bcbb0914a5b72a1cfcc43fb95e
 }
 
 
