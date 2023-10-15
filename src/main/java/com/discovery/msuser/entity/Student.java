@@ -9,6 +9,7 @@ import java.util.Date;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Long userId;
 
     @Column(name = "USERNAME", nullable = false)

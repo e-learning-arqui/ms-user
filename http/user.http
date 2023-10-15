@@ -3,11 +3,11 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "username": "batman",
-  "email": "batman@wayneenterprises.com",
-  "firstName": "Bruce",
-  "lastName": "Wayne",
-  "password": "qwerty"
+  "username": "Alejandroxd",
+  "email": "Alexd@gmail.com",
+  "firstName": "alexd",
+  "lastName": "floresxd",
+  "password": "1234"
 }
 ###
 GET http://localhost:8000/api/v1/users/ffa27ed2-5096-4876-b299-b5a2e69c87a1
@@ -15,16 +15,15 @@ GET http://localhost:8000/api/v1/users/ffa27ed2-5096-4876-b299-b5a2e69c87a1
 ###
 POST http://localhost:8000/api/v1/users/professors
 Content-Type: application/json
-//Authorization: Bearer {{access_token}}
 
 {
-  "username": "profesir2",
-  "email": "gsd12r@asd.com",
-  "firstName": "juan2",
-  "lastName": "juan22",
+  "username": "Sebastian Belmonte",
+  "email": "sebastian@gmail.com",
+  "firstName": "SEBAS",
+  "lastName": "BELMONTE",
   "password": "1234"
 }
 
 ###
 
-GET http://localhost:8000/api/v1/users/professors/1
+GET http://localhost:8000/api/v1/users/professors/2

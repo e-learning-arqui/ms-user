@@ -2,7 +2,7 @@ POST http://localhost:8000/api/v1/users/professors/course
 Content-Type: application/json
 
 {
-  "title": "Curso de Ejemplo 2",
+  "title": "Curso Arquitectura",
   "description": "Descripción del curso",
   "amount": 99.99,
   "version": 1,
@@ -10,7 +10,7 @@ Content-Type: application/json
   "languageId": 1,
   "levelId": 2,
   "subCategoryId": 3,
-  "professorKeycloakId": "d4ab900f-3fe0-44ba-aacd-4ad74a7738ce"
+  "professorKeycloakId": "b1b22ac1-f533-4050-8f75-9c28f07843f3"
 }
 
 

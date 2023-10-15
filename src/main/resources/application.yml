@@ -5,9 +5,9 @@ spring:
     application:
         name: ms-users
     datasource:
-      url: jdbc:postgresql://localhost:5432/cognito-hub
+      url: jdbc:postgresql://localhost:5432/cognito
       username: postgres
-      password: admin
+      password: 1234
       jpa:
         hibernate:
           ddl-auto: none

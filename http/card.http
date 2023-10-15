@@ -1,0 +1,10 @@
+POST http://localhost:8000/api/v1/users/1/card
+Content-Type: application/json
+
+{
+    "bankName": "BNB",
+    "number": "1234567890",
+    "expiration": "2020-12-31",
+    "titular": "John Doe",
+    "cvv": "123"
+}
