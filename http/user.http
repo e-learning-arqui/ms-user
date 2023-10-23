@@ -17,10 +17,10 @@ POST http://localhost:8000/api/v1/users/professors
 Content-Type: application/json
 
 {
-  "username": "Sebastian Belmonte",
-  "email": "sebastian@gmail.com",
-  "firstName": "SEBAS",
-  "lastName": "BELMONTE",
+  "username": "sebas",
+  "email": "sebas@gmail.com",
+  "firstName": "ale",
+  "lastName": "flores",
   "password": "1234"
 }
 
