@@ -9,6 +9,7 @@ import com.discovery.msuser.entity.Student;
 import com.discovery.msuser.exception.UserException;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,8 +57,8 @@ public class UserBl {
 
         CredentialRepresentation passwordRepresentation = preparePasswordRepresentation(userDto.getPassword());
         UserRepresentation userRepresentation = prepareUserRepresentation(userDto, passwordRepresentation);
-        Response response = keycloak.
-                realm(realm)
+        Response response = keycloak
+                .realm(realm)
                 .users()
                 .create(userRepresentation);
         logger.info("Response {}", response.getStatus());
@@ -98,6 +99,8 @@ public class UserBl {
             throw new UserException(HttpStatus.BAD_REQUEST.value(),"User already exists");
         }
         String keycloakUserId = response.getLocation().getPath().replaceAll(".*/([^/]+)$", "$1");
+        GroupRepresentation professorGroup = keycloak.realm(realm).groups().groups("professor", 0, 1).get(0); // Asume que solo hay un grupo con el nombre "professor"
+        keycloak.realm(realm).users().get(keycloakUserId).joinGroup(professorGroup.getId());
         logger.info("Starting to add professor to database");
         Professor professor = new Professor();
         professor.setUsername(userDto.getUsername());

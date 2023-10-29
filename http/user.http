@@ -17,13 +17,17 @@ POST http://localhost:8000/api/v1/users/professors
 Content-Type: application/json
 
 {
-  "username": "Sebastian Belmonte",
-  "email": "sebastian@gmail.com",
-  "firstName": "SEBAS",
-  "lastName": "BELMONTE",
+  "username": "Profesor en Grupo",
+  "email": "Profesor@gmail.com",
+  "firstName": "Profesor",
+  "lastName": "Grupo",
   "password": "1234"
 }
 
 ###
 
 GET http://localhost:8000/api/v1/users/professors/2
+
+###
+
+GET http://localhost:8000/api/v1/users/professors/8db25ec4-cd69-41ea-bcd3-d14405485272/courses

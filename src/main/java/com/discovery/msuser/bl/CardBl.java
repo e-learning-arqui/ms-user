@@ -36,6 +36,17 @@ public class CardBl {
         card.setTitular(cardDto.getTitular());
         cardRepository.saveAndFlush(card);
     }
+    public CardDto getUserCardByKeycloakId(String userKeycloakId) throws UserException {
+        logger.info("Starting to get card to user with id: {}", userKeycloakId);
+        Card card = cardRepository.findCardByKeycloakId(userKeycloakId);
+        CardDto cardDto = new CardDto();
+        cardDto.setBankName(card.getBankName());
+        cardDto.setNumber(card.getNumber());
+        cardDto.setCvv(card.getCvv());
+        cardDto.setExpiration(card.getExpiration());
+        cardDto.setTitular(card.getTitular());
+        return cardDto;
+    }
 
 
 
