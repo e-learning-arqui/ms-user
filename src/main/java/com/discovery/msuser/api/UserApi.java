@@ -111,7 +111,7 @@ public class UserApi {
         ResponseEntity<ResponseDto<SubscriptionDto>> response = null;
         String token = "Bearer " + keycloakService.getToken(data).get("access_token");
         logger.info("token: {}", token);
-        SubscriptionDto  subDto = paymentService.getSubscriptionByUserId(token, userId);
+        SubscriptionDto subDto = paymentService.getSubscriptionByUserId(token, userId);
         response = ResponseEntity.ok(new ResponseDto<>(null, "0000", subDto));
         return response;
     }
@@ -120,5 +120,5 @@ public class UserApi {
 
 
 
-}
+    }
 

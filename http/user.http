@@ -1,12 +1,11 @@
 POST http://localhost:8000/api/v1/users/students
 Content-Type: application/json
-Authorization: Bearer {{access_token}}
 
 {
-  "username": "Alejandroxd",
-  "email": "Alexd@gmail.com",
-  "firstName": "alexd",
-  "lastName": "floresxd",
+  "username": "sebas",
+  "email": "sebas@gmail.com",
+  "firstName": "ale",
+  "lastName": "flores",
   "password": "1234"
 }
 ###
@@ -18,10 +17,11 @@ Content-Type: application/json
 
 {
 
-  "username": "Profesor en Grupo",
-  "email": "Profesor@gmail.com",
-  "firstName": "Profesor",
-  "lastName": "Grupo"
+  "username": "profe",
+  "email": "profe@gmail.com",
+  "firstName": "profe",
+  "lastName": "sor",
+  "password": "1234"
 
 }
 

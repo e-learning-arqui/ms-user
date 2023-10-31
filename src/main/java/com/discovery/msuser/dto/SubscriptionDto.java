@@ -1,7 +1,6 @@
 package com.discovery.msuser.dto;
 
 import java.util.Date;
-
 public class SubscriptionDto {
     private Date startDate;
     private Date deadline;

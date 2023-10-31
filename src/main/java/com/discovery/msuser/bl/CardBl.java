@@ -51,7 +51,7 @@ public class CardBl {
 
 
     public List<CardDto> getUserCards(String userId) throws UserException {
-        logger.info("Starting to get cards to user with id: {}", userId);
+        //logger.info("Starting to get cards to user with id: {}", userId);
         Student student = userRepository.findByUserKeycloakId(userId);
         List<Card> cards = cardRepository.findAllCardsByUserId(student.getUserId());
 

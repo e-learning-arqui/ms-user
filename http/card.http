@@ -2,12 +2,12 @@ POST http://localhost:8000/api/v1/users/card
 Content-Type: application/json
 
 {
-    "bankName": "Bisa",
+    "bankName": "BISA",
     "number": "1234567890",
     "expiration": "2026-12-31",
-    "titular": "Pedro Perez",
+    "titular": "Ale flores",
     "cvv": "123",
-    "userKeycloakId": "23772082-fe41-4dcc-9d10-e4a127447c9e"
+    "userKeycloakId": "be62fdee-5a5d-4a41-ade2-9a182faedb47"
 }
 ###
-GET http://localhost:8000/api/v1/users/23772082-fe41-4dcc-9d10-e4a127447c9e/card
+GET http://localhost:8000/api/v1/users/be62fdee-5a5d-4a41-ade2-9a182faedb47/card
