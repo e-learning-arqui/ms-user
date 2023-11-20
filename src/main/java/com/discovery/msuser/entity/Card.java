@@ -27,6 +27,9 @@ public class Card {
     @Column(name = "CVV", nullable = false, length = 3)
     private String cvv;
 
+    @Column(name = "STATUS", nullable = false)
+    private boolean status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false, referencedColumnName = "USER_ID")
     private Student userId;
@@ -34,13 +37,14 @@ public class Card {
     public Card() {
     }
 
-    public Card(String bankName, String number, Date expiration, String titular, String cvv, Student userId) {
+    public Card(String bankName, String number, Date expiration, String titular, String cvv,boolean status , Student userId) {
         this.bankName = bankName;
         this.number = number;
         this.expiration = expiration;
         this.titular = titular;
         this.cvv = cvv;
         this.userId = userId;
+        this.status = status;
     }
 
     // Getters and setters
@@ -101,6 +105,14 @@ public class Card {
         this.userId = userId;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
@@ -110,7 +122,9 @@ public class Card {
                 ", expiration=" + expiration +
                 ", titular='" + titular + '\'' +
                 ", cvv='" + cvv + '\'' +
+                ", status='" + status + '\'' +
                 ", userId=" + userId +
+
                 '}';
     }
 }

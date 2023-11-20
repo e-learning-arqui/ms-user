@@ -34,6 +34,7 @@ public class CardBl {
         card.setCvv(cardDto.getCvv());
         card.setExpiration(cardDto.getExpiration());
         card.setTitular(cardDto.getTitular());
+        card.setStatus(true);
         cardRepository.saveAndFlush(card);
     }
     public CardDto getUserCardByKeycloakId(String userKeycloakId) throws UserException {
@@ -51,7 +52,7 @@ public class CardBl {
 
 
     public List<CardDto> getUserCards(String userId) throws UserException {
-        //logger.info("Starting to get cards to user with id: {}", userId);
+        logger.info("Starting to get cards to user with id: {}", userId);
         Student student = userRepository.findByUserKeycloakId(userId);
         List<Card> cards = cardRepository.findAllCardsByUserId(student.getUserId());
 
@@ -67,6 +68,15 @@ public class CardBl {
             ListcardDto.add(cardDto);
         }
         return ListcardDto;
+
+    }
+
+
+    public void deleteUserCard(Integer cardId) throws UserException {
+        logger.info("Starting to delete card with id: {}", cardId);
+        Card cardEntity = cardRepository.findCardByCardId(cardId);
+        cardEntity.setStatus(false);
+        cardRepository.saveAndFlush(cardEntity);
 
     }
 
