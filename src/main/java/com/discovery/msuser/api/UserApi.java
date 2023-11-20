@@ -34,6 +34,7 @@ public class UserApi {
     @Autowired
     private KeycloakService keycloakService;
 
+
     @Value("${server.port}")
     private String port;
 
@@ -117,8 +118,10 @@ public class UserApi {
     }
 
 
-
-
+    @PostMapping("/notification")
+    public String sendNotification(@RequestParam("message") String message, @RequestParam("routingKey") String routingKey) {
+        return userBl.sendNotification(message, routingKey);
 
     }
+}
 

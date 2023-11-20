@@ -3,10 +3,12 @@ package com.discovery.msuser.bl;
 import com.discovery.msuser.dao.ProfessorRepository;
 import com.discovery.msuser.dao.UserRepository;
 import com.discovery.msuser.dto.KeycloakUserDto;
+import com.discovery.msuser.dto.NotificationDto;
 import com.discovery.msuser.dto.UserDto;
 import com.discovery.msuser.entity.Professor;
 import com.discovery.msuser.entity.Student;
 import com.discovery.msuser.exception.UserException;
+import com.discovery.msuser.producer.NotificationProducer;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
@@ -33,6 +35,10 @@ public class UserBl {
     @Autowired
     private final ProfessorRepository professorRepository;
 
+    @Autowired
+    private final NotificationProducer notificationProducer;
+
+
     @Value("${keycloak.credentials.realm}")
     private String realm;
     @Value("${keycloak.credentials.resource}")
@@ -43,10 +49,12 @@ public class UserBl {
 
     public UserBl(Keycloak keycloak,
                   UserRepository userRepository,
-                  ProfessorRepository professorRepository) {
+                  ProfessorRepository professorRepository,
+                  NotificationProducer notificationProducer) {
         this.keycloak = keycloak;
         this.userRepository = userRepository;
         this.professorRepository = professorRepository;
+        this.notificationProducer = notificationProducer;
     }
 
     Logger logger = LoggerFactory.getLogger(UserBl.class);
@@ -170,6 +178,13 @@ public class UserBl {
         keycloakUserDto.setLastName(userRepresentation.getLastName());
         keycloakUserDto.setEmail(userRepresentation.getEmail());
         return keycloakUserDto;
+    }
+
+    public String sendNotification(String message, String routingKey) {
+        NotificationDto notificationDto = new NotificationDto();
+        notificationDto.setMessage(message);
+        notificationDto.setDate(new Date());
+        return notificationProducer.sendNotification(notificationDto, routingKey);
     }
 
 }

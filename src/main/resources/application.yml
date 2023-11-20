@@ -5,12 +5,18 @@ spring:
   application:
     name: ms-users
   datasource:
-    url: jdbc:postgresql://localhost:5432/cognito
+    url: jdbc:postgresql://localhost:5432/cognito-hub
     username: postgres
-    password: 1234
+    password: admin
   jpa:
     hibernate:
       ddl-auto: none
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: "/"
 
 eureka:
   client:
