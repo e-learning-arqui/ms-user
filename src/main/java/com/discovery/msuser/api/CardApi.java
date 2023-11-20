@@ -37,5 +37,15 @@ public class CardApi {
     }
 
 
+    // borrado de card por status
+
+    @PutMapping("/card/{cardId}")
+    public ResponseEntity<ResponseDto<String>> deleteUserCard(@PathVariable("cardId") Integer cardId) throws UserException {
+        logger.info("Starting to delete card with id: {}", cardId);
+        cardBl.deleteUserCard(cardId);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Card deleted successfully"));
+    }
+
+
 
 }

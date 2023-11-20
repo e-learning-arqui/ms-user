@@ -2,7 +2,7 @@ POST http://localhost:8000/api/v1/users/card
 Content-Type: application/json
 
 {
-    "bankName": "BISA",
+    "bankName": "BNB",
     "number": "1234567890",
     "expiration": "2026-12-31",
     "titular": "Ale flores",
@@ -11,3 +11,5 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8000/api/v1/users/be62fdee-5a5d-4a41-ade2-9a182faedb47/card
+###
+PUT http://localhost:8000/api/v1/users/card/4
