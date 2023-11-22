@@ -52,32 +52,30 @@ public class CardBl {
 
 
     public List<CardDto> getUserCards(String userId) throws UserException {
-        logger.info("Starting to get cards to user with id: {}", userId);
         Student student = userRepository.findByUserKeycloakId(userId);
         List<Card> cards = cardRepository.findAllCardsByUserId(student.getUserId());
 
-        List<CardDto> ListcardDto = new ArrayList<>();
+        List<CardDto> listCardDto = new ArrayList<>();
         // convert all list of cards to list of cardsDto
         for(Card card: cards){
             CardDto cardDto = new CardDto();
+            cardDto.setId(card.getCardId());
             cardDto.setBankName(card.getBankName());
             cardDto.setNumber(card.getNumber());
             cardDto.setCvv(card.getCvv());
             cardDto.setExpiration(card.getExpiration());
             cardDto.setTitular(card.getTitular());
-            ListcardDto.add(cardDto);
+            listCardDto.add(cardDto);
         }
-        return ListcardDto;
+        return listCardDto;
 
     }
 
 
     public void deleteUserCard(Integer cardId) throws UserException {
         logger.info("Starting to delete card with id: {}", cardId);
-        Card cardEntity = cardRepository.findCardByCardId(cardId);
-        cardEntity.setStatus(false);
-        cardRepository.saveAndFlush(cardEntity);
-
+        Card card = cardRepository.findCardByCardId(cardId);
+        cardRepository.delete(card);
     }
 
 }
