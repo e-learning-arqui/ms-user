@@ -3,6 +3,8 @@ package com.discovery.msuser.dto;
 import java.util.Date;
 
 public class CardDto {
+
+    private Long id;
     private String bankName;
     private String number;
     private Date expiration;
@@ -13,7 +15,8 @@ public class CardDto {
     public CardDto() {
     }
 
-    public CardDto( String bankName, String number, Date expiration, String titular, String cvv, String userKeycloakId) {
+    public CardDto(Long id,String bankName, String number, Date expiration, String titular, String cvv, String userKeycloakId) {
+        this.id = id;
         this.bankName = bankName;
         this.number = number;
         this.expiration = expiration;
@@ -24,6 +27,13 @@ public class CardDto {
 
     // Getters and setters
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getBankName() {
         return bankName;
@@ -78,6 +88,7 @@ public class CardDto {
     @Override
     public String toString() {
         return "CardDTO{" +
+                "id=" + id +
                 ", bankName='" + bankName + '\'' +
                 ", number='" + number + '\'' +
                 ", expiration=" + expiration +

@@ -23,14 +23,16 @@ public class CardApi {
     private Logger logger = LoggerFactory.getLogger(UserApi.class);
 
 
+
+    //agregar card
     @PostMapping("/card")
     public ResponseEntity<ResponseDto<String>> addUserCard(@RequestBody CardDto cardDto) throws UserException {
         cardBl.addUserCard(cardDto);
         return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Card added successfully"));
     }
 
+    //obtener todas las cards por id
     @GetMapping("/{id}/card")
-
     public ResponseEntity<ResponseDto<List<CardDto>>> getUserCard(@PathVariable("id") String userId) throws UserException {
         logger.info("Starting to get cards to user with id: {}", userId);
         return ResponseEntity.ok(new ResponseDto<>( "", "0000", cardBl.getUserCards(userId)));
@@ -38,8 +40,15 @@ public class CardApi {
 
 
     // borrado de card por status
+    /*@PutMapping("/card/{cardId}")
+    public ResponseEntity<ResponseDto<String>> deleteUserCard(@PathVariable("cardId") Integer cardId) throws UserException {
+        logger.info("Starting to delete card with id: {}", cardId);
+        cardBl.deleteUserCard(cardId);
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", "Card deleted successfully"));
+    }*/
 
-    @PutMapping("/card/{cardId}")
+    // borrado
+    @DeleteMapping("/card/{cardId}")
     public ResponseEntity<ResponseDto<String>> deleteUserCard(@PathVariable("cardId") Integer cardId) throws UserException {
         logger.info("Starting to delete card with id: {}", cardId);
         cardBl.deleteUserCard(cardId);
