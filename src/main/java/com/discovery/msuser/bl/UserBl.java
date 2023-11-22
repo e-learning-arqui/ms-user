@@ -83,6 +83,8 @@ public class UserBl {
         student.setKeycloakId(keycloakUserId);
         student.setTxUser("admin");
         student.setTxHost("localhost");
+        GroupRepresentation studentGroup = keycloak.realm(realm).groups().groups("student", 0, 1).get(0); // Asume que solo hay un grupo con el nombre "student"
+        keycloak.realm(realm).users().get(keycloakUserId).joinGroup(studentGroup.getId());
         Date date = new Date();
         student.setTxDate(date);
         userRepository.save(student);

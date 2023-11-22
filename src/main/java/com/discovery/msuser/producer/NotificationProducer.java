@@ -4,7 +4,6 @@ import com.discovery.msuser.dto.NotificationDto;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.logging.Logger;
 
 @Service
@@ -24,5 +23,4 @@ public class NotificationProducer {
         amqpTemplate.convertAndSend("ucbExchange", routingKey, notificationDto);
         return "Notification sent to queue";
     }
-
 }
