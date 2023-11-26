@@ -17,11 +17,11 @@ Content-Type: application/json
 
 {
 
-  "username": "profe",
-  "email": "profe@gmail.com",
-  "firstName": "profe",
+  "username": "pepito",
+  "email": "pepito@gmail.com",
+  "firstName": "pepito",
   "lastName": "sor",
-  "password": "1234"
+  "password": "123"
 
 }
 
