@@ -48,5 +48,19 @@ token:
   converter:
     principal-attribute: preferred_username
     resource-id: cognito-hub
+security:
+  routes:
+    - path: /api/v1/users/students
+      method: POST
+      roles: []
+    - path: /api/v1/users/professors
+      method: POST
+      roles: []
+    - path: /api/v1/users/professors/**
+      method: GET
+      roles: [CREATE_COURSES]
+    - path: /api/v1/users/students/{userId}/subscription
+      method: GET
+      roles: [VIEW_COURSES]
 
 
