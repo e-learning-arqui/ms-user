@@ -58,9 +58,9 @@ security:
       roles: []
     - path: /api/v1/users/professors/**
       method: GET
-      roles: [CREATE_COURSES]
+      roles: [CREATE-COURSES]
     - path: /api/v1/users/students/{userId}/subscription
       method: GET
-      roles: [VIEW_COURSES]
+      roles: [VIEW-COURSES]
 
 
