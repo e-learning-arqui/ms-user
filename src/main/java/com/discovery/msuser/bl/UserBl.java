@@ -69,7 +69,7 @@ public class UserBl {
                 .realm(realm)
                 .users()
                 .create(userRepresentation);
-        logger.info("Response {}", response.getStatus());
+        logger.info("Response {}", response.getStatusInfo());
 
         if(response.getStatus() != 201) {
             throw new UserException(HttpStatus.BAD_REQUEST.value(),"User already exists");
@@ -187,6 +187,14 @@ public class UserBl {
         notificationDto.setMessage(message);
         notificationDto.setDate(new Date());
         return notificationProducer.sendNotification(notificationDto, routingKey);
+    }
+
+    public String updateUserGroup(String keycloakId, String group) {
+        logger.info("Starting to update user group with keycloak id {}", keycloakId);
+        GroupRepresentation groupRepresentation = keycloak.realm(realm).groups().groups(group, 0, 1).get(0);
+        logger.info("Group found {}", groupRepresentation.getName());
+        keycloak.realm(realm).users().get(keycloakId).joinGroup(groupRepresentation.getId());
+        return "User updated";
     }
 
 }

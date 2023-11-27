@@ -9,50 +9,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMqConfig {
-    @Bean
-    public DirectExchange ucbExchange() {
-        return new DirectExchange("ucbExchange");
-    }
-
-   @Bean
-   public Queue gamification1Queue() {
-       return QueueBuilder.durable("gamification1.queue")
-               .build();
-   }
-
-   @Bean
-   public Queue gamification2Queue() {
-        return QueueBuilder.durable("gamification2.queue")
-                .build();
-   }
-
 
     @Bean
-    public Queue reportsQueue() {
-        return QueueBuilder.durable("reports.queue")
-                .build();
+    public TopicExchange topicExchange() {
+        return new TopicExchange("topic-exchange");
+
     }
 
-    @Bean
-    public Binding bindingGamification1(DirectExchange ucbExchange, Queue gamification1Queue) {
-        return BindingBuilder.bind(gamification1Queue)
-                .to(ucbExchange)
-                .with("game.routingKey");
-    }
 
-    @Bean
-    public Binding bindingGamification2(DirectExchange ucbExchange, Queue gamification2Queue) {
-        return BindingBuilder.bind(gamification2Queue)
-                .to(ucbExchange)
-                .with("game.routingKey");
-    }
-
-    @Bean
-    public Binding bindingReport(DirectExchange ucbExchange, Queue reportsQueue) {
-        return BindingBuilder.bind(reportsQueue)
-                .to(ucbExchange)
-                .with("reports.routingKey");
-    }
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {

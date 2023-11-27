@@ -96,7 +96,6 @@ public class UserApi {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ) {
-
         logger.info("Starting to get courses from {}", port);
         return ResponseEntity.ok(courseService.getCoursesByProfessorId(professorId, page, size));
 
@@ -116,6 +115,14 @@ public class UserApi {
         response = ResponseEntity.ok(new ResponseDto<>(null, "0000", subDto));
         return response;
     }
+
+    //update subscription
+    @PutMapping("/student/{userId}/subscription")
+    public ResponseEntity<ResponseDto<String>> updateSubscription(@PathVariable String userId){
+        String response = userBl.updateUserGroup(userId, "subscriber");
+        return ResponseEntity.ok(new ResponseDto<>(null, "0000", response));
+    }
+
 
 
     @PostMapping("/notification")

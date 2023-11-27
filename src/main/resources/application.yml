@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: ms-users
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${ISSUER_URI:http://localhost:8080/realms/cognito-hub}
+          jwk-set-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/certs
   datasource:
     url: jdbc:postgresql://localhost:5432/cognito
     username: postgres
@@ -38,6 +44,9 @@ management:
       probability: 1.0
 
 
-
+token:
+  converter:
+    principal-attribute: preferred_username
+    resource-id: cognito-hub
 
 
